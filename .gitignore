@@ -68,3 +68,4 @@ audioset_tagging_cnn/
 auditory-slow-fast/
 epic-kitchens-download-scripts/
 epic-sounds-annotations/
+*.json
