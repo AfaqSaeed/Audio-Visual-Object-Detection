@@ -1,0 +1,70 @@
+# Python caches and environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Notebook and editor clutter
+.ipynb_checkpoints/
+.vscode/
+.idea/
+
+# Local caches and temp data
+.cache/
+.tmp_numba_shim/
+.ultralytics/
+tmp/
+temp/
+
+# Logs
+*.log
+
+# Large model and dataset artifacts
+*.pt
+*.pth
+*.pyth
+*.h5
+*.hdf5
+*.ckpt
+*.ts
+
+# Video files
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+*.mpg
+*.mpeg
+*.m4v
+
+# Audio files
+*.wav
+*.mp3
+*.flac
+*.aac
+*.ogg
+
+# Generated outputs
+*_windows.csv
+*_summary.csv
+*_peaks.csv
+*_logs.txt
+*_logs.txtpython
+logs/
+
+# Common training output folders
+outputs/
+checkpoints/
+wandb/
+runs/
+
+# Nested repositories kept separate from this outer repo
+audioset_tagging_cnn/
+auditory-slow-fast/
+epic-kitchens-download-scripts/
+epic-sounds-annotations/

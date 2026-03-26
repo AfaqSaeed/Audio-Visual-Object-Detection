@@ -1,0 +1,195 @@
+annotation_id,participant_id,video_id,start_timestamp,stop_timestamp,start_sample,stop_sample,description,class,class_id,audioset_label,audioset_class_id,epic_label,epic_class_id,mapping_status,score
+P01_01_0,P01,P01_01,00:00:16.000,00:00:16.320,384000,391680,Crushing,Crushing,478,Crushing,478,,,unmapped,0.190847
+P01_01_1,P01,P01_01,00:00:18.880,00:00:19.200,453120,460800,Crushing,Crushing,478,Crushing,478,,,unmapped,0.153255
+P01_01_2,P01,P01_01,00:00:31.040,00:00:31.360,744960,752640,Cupboard open or close,Cupboard open or close,362,Cupboard open or close,362,open / close,3,mapped,0.179221
+P01_01_3,P01,P01_01,00:00:48.960,00:00:49.280,1175040,1182720,Cupboard open or close,Cupboard open or close,362,Cupboard open or close,362,open / close,3,mapped,0.169819
+P01_01_4,P01,P01_01,00:00:56.320,00:00:56.640,1351680,1359360,Cupboard open or close,Cupboard open or close,362,Cupboard open or close,362,open / close,3,mapped,0.162458
+P01_01_5,P01,P01_01,00:01:01.760,00:01:07.200,1482240,1612800,Water,Water,288,Water,288,water,5,mapped,0.329686
+P01_01_6,P01,P01_01,00:01:02.080,00:01:04.640,1489920,1551360,"Water tap, faucet","Water tap, faucet",370,"Water tap, faucet",370,water,5,mapped,0.342537
+P01_01_7,P01,P01_01,00:01:03.360,00:01:04.320,1520640,1543680,Sink (filling or washing),Sink (filling or washing),371,Sink (filling or washing),371,water,5,mapped,0.220808
+P01_01_8,P01,P01_01,00:01:05.920,00:01:07.200,1582080,1612800,"Water tap, faucet","Water tap, faucet",370,"Water tap, faucet",370,water,5,mapped,0.271841
+P01_01_9,P01,P01_01,00:01:08.800,00:01:09.760,1651200,1674240,Animal,Animal,72,Animal,72,,,unmapped,0.481842
+P01_01_10,P01,P01_01,00:01:08.800,00:01:09.760,1651200,1674240,"Domestic animals, pets","Domestic animals, pets",73,"Domestic animals, pets",73,,,unmapped,0.295429
+P01_01_11,P01,P01_01,00:01:09.120,00:01:09.440,1658880,1666560,Dog,Dog,74,Dog,74,,,unmapped,0.160464
+P01_01_12,P01,P01_01,00:01:10.080,00:01:11.360,1681920,1712640,Water,Water,288,Water,288,water,5,mapped,0.285359
+P01_01_13,P01,P01_01,00:01:10.080,00:01:11.040,1681920,1704960,"Water tap, faucet","Water tap, faucet",370,"Water tap, faucet",370,water,5,mapped,0.264407
+P01_01_14,P01,P01_01,00:01:12.000,00:01:23.520,1728000,2004480,"Water tap, faucet","Water tap, faucet",370,"Water tap, faucet",370,water,5,mapped,0.540663
+P01_01_15,P01,P01_01,00:01:12.000,00:01:23.520,1728000,2004480,Water,Water,288,Water,288,water,5,mapped,0.436039
+P01_01_16,P01,P01_01,00:01:12.320,00:01:15.520,1735680,1812480,Sink (filling or washing),Sink (filling or washing),371,Sink (filling or washing),371,water,5,mapped,0.314878
+P01_01_17,P01,P01_01,00:01:17.760,00:01:20.320,1866240,1927680,Sink (filling or washing),Sink (filling or washing),371,Sink (filling or washing),371,water,5,mapped,0.192413
+P01_01_18,P01,P01_01,00:01:21.600,00:01:23.200,1958400,1996800,Sink (filling or washing),Sink (filling or washing),371,Sink (filling or washing),371,water,5,mapped,0.400603
+P01_01_19,P01,P01_01,00:01:50.400,00:01:51.680,2649600,2680320,"Dishes, pots, and pans","Dishes, pots, and pans",364,"Dishes, pots, and pans",364,ceramic-only collision,14,mapped,0.414484
+P01_01_20,P01,P01_01,00:01:50.400,00:01:51.360,2649600,2672640,"Cutlery, silverware","Cutlery, silverware",365,"Cutlery, silverware",365,cut / chop,2,mapped,0.389078
+P01_01_21,P01,P01_01,00:02:22.720,00:02:23.360,3425280,3440640,Finger snapping,Finger snapping,62,Finger snapping,62,,,unmapped,0.212922
+P01_01_22,P01,P01_01,00:03:17.120,00:03:18.720,4730880,4769280,Animal,Animal,72,Animal,72,,,unmapped,0.234294
+P01_01_23,P01,P01_01,00:03:28.320,00:03:28.640,4999680,5007360,Animal,Animal,72,Animal,72,,,unmapped,0.157163
+P01_01_24,P01,P01_01,00:04:14.080,00:04:15.360,6097920,6128640,Filing (rasp),Filing (rasp),422,Filing (rasp),422,,,unmapped,0.413212
+P01_01_25,P01,P01_01,00:04:14.080,00:04:15.040,6097920,6120960,Rub,Rub,476,Rub,476,scrub / scrape / scour / wipe,1,mapped,0.316165
+P01_01_26,P01,P01_01,00:04:14.080,00:04:15.040,6097920,6120960,Wood,Wood,437,Wood,437,wood-only collision,21,mapped,0.230560
+P01_01_27,P01,P01_01,00:04:32.320,00:04:32.960,6535680,6551040,Animal,Animal,72,Animal,72,,,unmapped,0.227773
+P01_01_28,P01,P01_01,00:04:41.600,00:04:42.880,6758400,6789120,Finger snapping,Finger snapping,62,Finger snapping,62,,,unmapped,0.717553
+P01_01_29,P01,P01_01,00:04:44.800,00:04:45.760,6835200,6858240,Finger snapping,Finger snapping,62,Finger snapping,62,,,unmapped,0.366008
+P01_01_30,P01,P01_01,00:05:03.040,00:05:16.480,7272960,7595520,Water,Water,288,Water,288,water,5,mapped,0.475681
+P01_01_31,P01,P01_01,00:05:03.360,00:05:16.480,7280640,7595520,"Water tap, faucet","Water tap, faucet",370,"Water tap, faucet",370,water,5,mapped,0.630454
+P01_01_32,P01,P01_01,00:05:03.360,00:05:04.000,7280640,7296000,Sink (filling or washing),Sink (filling or washing),371,Sink (filling or washing),371,water,5,mapped,0.160599
+P01_01_33,P01,P01_01,00:05:04.960,00:05:16.480,7319040,7595520,Sink (filling or washing),Sink (filling or washing),371,Sink (filling or washing),371,water,5,mapped,0.539369
+P01_01_34,P01,P01_01,00:05:23.200,00:05:24.160,7756800,7779840,Typewriter,Typewriter,385,Typewriter,385,click,16,mapped,0.227012
+P01_01_35,P01,P01_01,00:05:27.680,00:05:30.560,7864320,7933440,Typewriter,Typewriter,385,Typewriter,385,click,16,mapped,0.287925
+P01_01_36,P01,P01_01,00:05:43.680,00:05:45.600,8248320,8294400,Filing (rasp),Filing (rasp),422,Filing (rasp),422,,,unmapped,0.711277
+P01_01_37,P01,P01_01,00:05:43.680,00:05:45.600,8248320,8294400,Rub,Rub,476,Rub,476,scrub / scrape / scour / wipe,1,mapped,0.405460
+P01_01_38,P01,P01_01,00:05:44.000,00:05:45.600,8256000,8294400,Wood,Wood,437,Wood,437,wood-only collision,21,mapped,0.231846
+P01_01_39,P01,P01_01,00:06:08.000,00:06:08.320,8832000,8839680,Hiss,Hiss,84,Hiss,84,,,unmapped,0.167988
+P01_01_40,P01,P01_01,00:06:30.720,00:06:31.360,9377280,9392640,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.180606
+P01_01_41,P01,P01_01,00:06:50.240,00:06:50.560,9845760,9853440,Hiss,Hiss,84,Hiss,84,,,unmapped,0.155871
+P01_01_42,P01,P01_01,00:07:11.360,00:07:12.000,10352640,10368000,Hiss,Hiss,84,Hiss,84,,,unmapped,0.188654
+P01_01_43,P01,P01_01,00:07:11.680,00:07:12.000,10360320,10368000,Steam,Steam,296,Steam,296,,,unmapped,0.188082
+P01_01_44,P01,P01_01,00:07:19.360,00:07:20.640,10544640,10575360,Vehicle,Vehicle,300,Vehicle,300,,,unmapped,0.179666
+P01_01_45,P01,P01_01,00:07:20.960,00:07:22.240,10583040,10613760,Hiss,Hiss,84,Hiss,84,,,unmapped,0.281884
+P01_01_46,P01,P01_01,00:07:21.280,00:07:21.920,10590720,10606080,Steam,Steam,296,Steam,296,,,unmapped,0.241749
+P01_01_47,P01,P01_01,00:07:39.520,00:07:39.840,11028480,11036160,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.152626
+P01_01_48,P01,P01_01,00:07:52.960,00:07:54.560,11351040,11389440,Steam,Steam,296,Steam,296,,,unmapped,0.196146
+P01_01_49,P01,P01_01,00:07:53.280,00:07:53.600,11358720,11366400,Hiss,Hiss,84,Hiss,84,,,unmapped,0.153420
+P01_01_50,P01,P01_01,00:07:53.920,00:07:54.240,11374080,11381760,Hiss,Hiss,84,Hiss,84,,,unmapped,0.162405
+P01_01_51,P01,P01_01,00:08:17.600,00:08:18.240,11942400,11957760,Vehicle,Vehicle,300,Vehicle,300,,,unmapped,0.164854
+P01_01_52,P01,P01_01,00:08:23.360,00:08:24.000,12080640,12096000,Mechanical fan,Mechanical fan,412,Mechanical fan,412,hoover / fan,40,mapped,0.203352
+P01_01_53,P01,P01_01,00:08:26.240,00:08:26.560,12149760,12157440,Animal,Animal,72,Animal,72,,,unmapped,0.155732
+P01_01_54,P01,P01_01,00:09:04.320,00:09:05.600,13063680,13094400,Mechanical fan,Mechanical fan,412,Mechanical fan,412,hoover / fan,40,mapped,0.326092
+P01_01_55,P01,P01_01,00:09:27.040,00:09:28.000,13608960,13632000,Hammer,Hammer,419,Hammer,419,,,unmapped,0.208154
+P01_01_56,P01,P01_01,00:09:31.200,00:09:32.480,13708800,13739520,Speech,Speech,0,Speech,0,human,24,mapped,0.440157
+P01_01_57,P01,P01_01,00:10:54.080,00:10:54.400,15697920,15705600,Train,Train,329,Train,329,,,unmapped,0.151799
+P01_01_58,P01,P01_01,00:10:59.520,00:11:01.440,15828480,15874560,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.601326
+P01_01_59,P01,P01_01,00:10:59.520,00:11:01.440,15828480,15874560,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.466673
+P01_01_60,P01,P01_01,00:10:59.520,00:11:01.440,15828480,15874560,Sizzle,Sizzle,490,Sizzle,490,sizzling / boiling,29,mapped,0.350296
+P01_01_61,P01,P01_01,00:11:04.640,00:11:05.920,15951360,15982080,"Dishes, pots, and pans","Dishes, pots, and pans",364,"Dishes, pots, and pans",364,ceramic-only collision,14,mapped,0.310626
+P01_01_62,P01,P01_01,00:11:04.640,00:11:05.920,15951360,15982080,"Cutlery, silverware","Cutlery, silverware",365,"Cutlery, silverware",365,cut / chop,2,mapped,0.255316
+P01_01_63,P01,P01_01,00:11:40.800,00:11:41.760,16819200,16842240,Cupboard open or close,Cupboard open or close,362,Cupboard open or close,362,open / close,3,mapped,0.273892
+P01_01_64,P01,P01_01,00:11:50.400,00:11:50.720,17049600,17057280,Vehicle,Vehicle,300,Vehicle,300,,,unmapped,0.152020
+P01_01_65,P01,P01_01,00:11:52.960,00:11:53.280,17111040,17118720,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.171560
+P01_01_66,P01,P01_01,00:11:57.760,00:11:58.400,17226240,17241600,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.207974
+P01_01_67,P01,P01_01,00:11:57.760,00:11:58.400,17226240,17241600,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.191352
+P01_01_68,P01,P01_01,00:11:57.760,00:11:58.400,17226240,17241600,Sizzle,Sizzle,490,Sizzle,490,sizzling / boiling,29,mapped,0.186227
+P01_01_69,P01,P01_01,00:12:04.800,00:12:05.120,17395200,17402880,Hiss,Hiss,84,Hiss,84,,,unmapped,0.156859
+P01_01_70,P01,P01_01,00:12:16.640,00:12:18.560,17679360,17725440,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.426532
+P01_01_71,P01,P01_01,00:12:16.640,00:12:18.560,17679360,17725440,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.398557
+P01_01_72,P01,P01_01,00:12:16.640,00:12:18.240,17679360,17717760,Sizzle,Sizzle,490,Sizzle,490,sizzling / boiling,29,mapped,0.291504
+P01_01_73,P01,P01_01,00:12:19.520,00:12:20.800,17748480,17779200,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.286838
+P01_01_74,P01,P01_01,00:12:19.520,00:12:20.800,17748480,17779200,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.212525
+P01_01_75,P01,P01_01,00:12:28.160,00:12:29.120,17955840,17978880,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.267172
+P01_01_76,P01,P01_01,00:12:28.160,00:12:28.800,17955840,17971200,Sizzle,Sizzle,490,Sizzle,490,sizzling / boiling,29,mapped,0.197550
+P01_01_77,P01,P01_01,00:12:28.480,00:12:29.120,17963520,17978880,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.214407
+P01_01_78,P01,P01_01,00:12:36.160,00:12:36.480,18147840,18155520,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.172888
+P01_01_79,P01,P01_01,00:12:36.160,00:12:36.480,18147840,18155520,Sizzle,Sizzle,490,Sizzle,490,sizzling / boiling,29,mapped,0.155412
+P01_01_80,P01,P01_01,00:12:40.640,00:12:40.960,18255360,18263040,Vehicle,Vehicle,300,Vehicle,300,,,unmapped,0.176617
+P01_01_81,P01,P01_01,00:12:44.160,00:12:44.480,18339840,18347520,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.190775
+P01_01_82,P01,P01_01,00:12:44.160,00:12:44.480,18339840,18347520,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.161846
+P01_01_83,P01,P01_01,00:12:46.080,00:12:47.040,18385920,18408960,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.281522
+P01_01_84,P01,P01_01,00:12:46.400,00:12:47.040,18393600,18408960,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.252039
+P01_01_85,P01,P01_01,00:12:46.400,00:12:47.040,18393600,18408960,Sizzle,Sizzle,490,Sizzle,490,sizzling / boiling,29,mapped,0.181196
+P01_01_86,P01,P01_01,00:12:49.920,00:12:51.200,18478080,18508800,Water,Water,288,Water,288,water,5,mapped,0.253061
+P01_01_87,P01,P01_01,00:12:49.920,00:12:50.880,18478080,18501120,"Water tap, faucet","Water tap, faucet",370,"Water tap, faucet",370,water,5,mapped,0.217723
+P01_01_88,P01,P01_01,00:12:49.920,00:12:50.560,18478080,18493440,Sink (filling or washing),Sink (filling or washing),371,Sink (filling or washing),371,water,5,mapped,0.170485
+P01_01_89,P01,P01_01,00:13:10.080,00:13:10.400,18961920,18969600,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.181826
+P01_01_90,P01,P01_01,00:13:19.680,00:13:20.320,19192320,19207680,Water,Water,288,Water,288,water,5,mapped,0.169354
+P01_01_91,P01,P01_01,00:13:24.480,00:13:24.800,19307520,19315200,Water,Water,288,Water,288,water,5,mapped,0.155843
+P01_01_92,P01,P01_01,00:13:29.600,00:13:30.880,19430400,19461120,Water,Water,288,Water,288,water,5,mapped,0.241899
+P01_01_93,P01,P01_01,00:13:29.920,00:13:30.560,19438080,19453440,"Water tap, faucet","Water tap, faucet",370,"Water tap, faucet",370,water,5,mapped,0.157403
+P01_01_94,P01,P01_01,00:13:34.720,00:13:35.680,19553280,19576320,Water,Water,288,Water,288,water,5,mapped,0.179942
+P01_01_95,P01,P01_01,00:13:38.560,00:13:40.800,19645440,19699200,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.494816
+P01_01_96,P01,P01_01,00:13:38.560,00:13:40.800,19645440,19699200,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.493839
+P01_01_97,P01,P01_01,00:13:38.560,00:13:40.800,19645440,19699200,Sizzle,Sizzle,490,Sizzle,490,sizzling / boiling,29,mapped,0.344942
+P01_01_98,P01,P01_01,00:14:00.960,00:14:01.920,20183040,20206080,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.323937
+P01_01_99,P01,P01_01,00:14:00.960,00:14:01.920,20183040,20206080,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.236022
+P01_01_100,P01,P01_01,00:14:00.960,00:14:01.920,20183040,20206080,Sizzle,Sizzle,490,Sizzle,490,sizzling / boiling,29,mapped,0.222672
+P01_01_101,P01,P01_01,00:14:37.120,00:14:39.040,21050880,21096960,Typewriter,Typewriter,385,Typewriter,385,click,16,mapped,0.458494
+P01_01_102,P01,P01_01,00:14:48.320,00:14:49.600,21319680,21350400,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.268254
+P01_01_103,P01,P01_01,00:14:48.640,00:14:49.600,21327360,21350400,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.278634
+P01_01_104,P01,P01_01,00:14:48.640,00:14:49.600,21327360,21350400,Sizzle,Sizzle,490,Sizzle,490,sizzling / boiling,29,mapped,0.189433
+P01_01_105,P01,P01_01,00:15:03.360,00:15:04.960,21680640,21719040,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.337043
+P01_01_106,P01,P01_01,00:15:03.360,00:15:04.960,21680640,21719040,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.265978
+P01_01_107,P01,P01_01,00:15:03.360,00:15:04.960,21680640,21719040,Sizzle,Sizzle,490,Sizzle,490,sizzling / boiling,29,mapped,0.213262
+P01_01_108,P01,P01_01,00:15:12.960,00:15:13.600,21911040,21926400,Cupboard open or close,Cupboard open or close,362,Cupboard open or close,362,open / close,3,mapped,0.184538
+P01_01_109,P01,P01_01,00:15:27.680,00:15:28.960,22264320,22295040,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.301882
+P01_01_110,P01,P01_01,00:15:27.680,00:15:28.960,22264320,22295040,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.277810
+P01_01_111,P01,P01_01,00:15:27.680,00:15:28.960,22264320,22295040,Sizzle,Sizzle,490,Sizzle,490,sizzling / boiling,29,mapped,0.250072
+P01_01_112,P01,P01_01,00:15:33.760,00:15:36.640,22410240,22479360,Vehicle,Vehicle,300,Vehicle,300,,,unmapped,0.329154
+P01_01_113,P01,P01_01,00:15:34.720,00:15:36.000,22433280,22464000,Engine,Engine,343,Engine,343,,,unmapped,0.193066
+P01_01_114,P01,P01_01,00:15:40.160,00:15:42.720,22563840,22625280,Vehicle,Vehicle,300,Vehicle,300,,,unmapped,0.244057
+P01_01_115,P01,P01_01,00:16:00.000,00:16:01.280,23040000,23070720,Water,Water,288,Water,288,water,5,mapped,0.221538
+P01_01_116,P01,P01_01,00:16:00.320,00:16:00.640,23047680,23055360,Liquid,Liquid,444,Liquid,444,pour,19,mapped,0.158450
+P01_01_117,P01,P01_01,00:16:31.680,00:16:32.000,23800320,23808000,Sewing machine,Sewing machine,411,Sewing machine,411,,,unmapped,0.171923
+P01_01_118,P01,P01_01,00:16:52.480,00:16:53.120,24299520,24314880,Water,Water,288,Water,288,water,5,mapped,0.160761
+P01_01_119,P01,P01_01,00:16:55.360,00:16:56.000,24368640,24384000,Water,Water,288,Water,288,water,5,mapped,0.167373
+P01_01_120,P01,P01_01,00:17:08.160,00:17:09.440,24675840,24706560,Vehicle,Vehicle,300,Vehicle,300,,,unmapped,0.183875
+P01_01_121,P01,P01_01,00:17:10.400,00:17:11.040,24729600,24744960,Water,Water,288,Water,288,water,5,mapped,0.176947
+P01_01_122,P01,P01_01,00:17:13.600,00:17:14.240,24806400,24821760,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.259689
+P01_01_123,P01,P01_01,00:17:13.600,00:17:14.240,24806400,24821760,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.204686
+P01_01_124,P01,P01_01,00:17:13.600,00:17:13.920,24806400,24814080,Sizzle,Sizzle,490,Sizzle,490,sizzling / boiling,29,mapped,0.150740
+P01_01_125,P01,P01_01,00:17:19.040,00:17:19.680,24936960,24952320,"Dishes, pots, and pans","Dishes, pots, and pans",364,"Dishes, pots, and pans",364,ceramic-only collision,14,mapped,0.215413
+P01_01_126,P01,P01_01,00:17:19.040,00:17:19.680,24936960,24952320,"Cutlery, silverware","Cutlery, silverware",365,"Cutlery, silverware",365,cut / chop,2,mapped,0.191877
+P01_01_127,P01,P01_01,00:17:20.640,00:17:21.280,24975360,24990720,"Dishes, pots, and pans","Dishes, pots, and pans",364,"Dishes, pots, and pans",364,ceramic-only collision,14,mapped,0.212726
+P01_01_128,P01,P01_01,00:17:20.640,00:17:20.960,24975360,24983040,"Cutlery, silverware","Cutlery, silverware",365,"Cutlery, silverware",365,cut / chop,2,mapped,0.165865
+P01_01_129,P01,P01_01,00:17:22.880,00:17:23.520,25029120,25044480,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.169769
+P01_01_130,P01,P01_01,00:17:23.200,00:17:25.760,25036800,25098240,"Dishes, pots, and pans","Dishes, pots, and pans",364,"Dishes, pots, and pans",364,ceramic-only collision,14,mapped,0.424276
+P01_01_131,P01,P01_01,00:17:23.200,00:17:25.760,25036800,25098240,"Cutlery, silverware","Cutlery, silverware",365,"Cutlery, silverware",365,cut / chop,2,mapped,0.320296
+P01_01_132,P01,P01_01,00:17:34.400,00:17:35.680,25305600,25336320,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.235400
+P01_01_133,P01,P01_01,00:17:34.720,00:17:35.680,25313280,25336320,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.223707
+P01_01_134,P01,P01_01,00:17:34.720,00:17:35.680,25313280,25336320,Sizzle,Sizzle,490,Sizzle,490,sizzling / boiling,29,mapped,0.181083
+P01_01_135,P01,P01_01,00:17:56.800,00:17:58.080,25843200,25873920,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.305419
+P01_01_136,P01,P01_01,00:17:56.800,00:17:57.760,25843200,25866240,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.205695
+P01_01_137,P01,P01_01,00:17:57.120,00:17:57.440,25850880,25858560,Sizzle,Sizzle,490,Sizzle,490,sizzling / boiling,29,mapped,0.163395
+P01_01_138,P01,P01_01,00:17:59.040,00:17:59.680,25896960,25912320,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.163157
+P01_01_139,P01,P01_01,00:18:15.040,00:18:15.360,26280960,26288640,Water,Water,288,Water,288,water,5,mapped,0.155103
+P01_01_140,P01,P01_01,00:19:22.560,00:19:23.520,27901440,27924480,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.339035
+P01_01_141,P01,P01_01,00:19:22.560,00:19:23.520,27901440,27924480,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.338232
+P01_01_142,P01,P01_01,00:19:22.560,00:19:23.520,27901440,27924480,Sizzle,Sizzle,490,Sizzle,490,sizzling / boiling,29,mapped,0.238551
+P01_01_143,P01,P01_01,00:19:29.600,00:19:30.240,28070400,28085760,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.171135
+P01_01_144,P01,P01_01,00:19:29.600,00:19:30.240,28070400,28085760,Sizzle,Sizzle,490,Sizzle,490,sizzling / boiling,29,mapped,0.159485
+P01_01_145,P01,P01_01,00:19:29.920,00:19:30.240,28078080,28085760,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.162256
+P01_01_146,P01,P01_01,00:20:00.000,00:20:00.960,28800000,28823040,Vehicle,Vehicle,300,Vehicle,300,,,unmapped,0.181673
+P01_01_147,P01,P01_01,00:20:21.440,00:20:22.720,29314560,29345280,Water,Water,288,Water,288,water,5,mapped,0.247695
+P01_01_148,P01,P01_01,00:20:21.760,00:20:22.400,29322240,29337600,"Water tap, faucet","Water tap, faucet",370,"Water tap, faucet",370,water,5,mapped,0.167796
+P01_01_149,P01,P01_01,00:20:22.080,00:20:22.400,29329920,29337600,Sink (filling or washing),Sink (filling or washing),371,Sink (filling or washing),371,water,5,mapped,0.161521
+P01_01_150,P01,P01_01,00:21:02.720,00:21:03.360,30305280,30320640,Animal,Animal,72,Animal,72,,,unmapped,0.169047
+P01_01_151,P01,P01_01,00:21:05.920,00:21:10.080,30382080,30481920,Water,Water,288,Water,288,water,5,mapped,0.249074
+P01_01_152,P01,P01_01,00:21:09.120,00:21:09.440,30458880,30466560,"Water tap, faucet","Water tap, faucet",370,"Water tap, faucet",370,water,5,mapped,0.152068
+P01_01_153,P01,P01_01,00:21:12.960,00:21:13.920,30551040,30574080,Cupboard open or close,Cupboard open or close,362,Cupboard open or close,362,open / close,3,mapped,0.334042
+P01_01_154,P01,P01_01,00:22:01.920,00:22:03.200,31726080,31756800,Vehicle,Vehicle,300,Vehicle,300,,,unmapped,0.213723
+P01_01_155,P01,P01_01,00:22:03.840,00:22:05.760,31772160,31818240,Vehicle,Vehicle,300,Vehicle,300,,,unmapped,0.227003
+P01_01_156,P01,P01_01,00:22:23.360,00:22:24.640,32240640,32271360,Vehicle,Vehicle,300,Vehicle,300,,,unmapped,0.229691
+P01_01_157,P01,P01_01,00:22:26.880,00:22:29.440,32325120,32386560,Vehicle,Vehicle,300,Vehicle,300,,,unmapped,0.206109
+P01_01_158,P01,P01_01,00:22:30.400,00:22:31.040,32409600,32424960,Vehicle,Vehicle,300,Vehicle,300,,,unmapped,0.165260
+P01_01_159,P01,P01_01,00:23:08.800,00:23:09.440,33331200,33346560,"Bee, wasp, etc.","Bee, wasp, etc.",131,"Bee, wasp, etc.",131,,,unmapped,0.166036
+P01_01_160,P01,P01_01,00:23:17.760,00:23:19.040,33546240,33576960,Toilet flush,Toilet flush,374,Toilet flush,374,,,unmapped,0.582030
+P01_01_161,P01,P01_01,00:23:17.760,00:23:19.360,33546240,33584640,Water,Water,288,Water,288,water,5,mapped,0.235733
+P01_01_162,P01,P01_01,00:23:21.920,00:23:22.880,33646080,33669120,Rain,Rain,289,Rain,289,,,unmapped,0.292427
+P01_01_163,P01,P01_01,00:23:22.240,00:23:22.560,33653760,33661440,Rain on surface,Rain on surface,291,Rain on surface,291,,,unmapped,0.166625
+P01_01_164,P01,P01_01,00:23:29.920,00:23:32.800,33838080,33907200,Vehicle,Vehicle,300,Vehicle,300,,,unmapped,0.297670
+P01_01_165,P01,P01_01,00:23:30.240,00:23:31.840,33845760,33884160,Engine,Engine,343,Engine,343,,,unmapped,0.171624
+P01_01_166,P01,P01_01,00:23:35.360,00:23:37.920,33968640,34030080,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.511565
+P01_01_167,P01,P01_01,00:23:35.680,00:23:36.960,33976320,34007040,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.236246
+P01_01_168,P01,P01_01,00:23:36.000,00:23:36.640,33984000,33999360,Sizzle,Sizzle,490,Sizzle,490,sizzling / boiling,29,mapped,0.170476
+P01_01_169,P01,P01_01,00:23:38.240,00:23:38.560,34037760,34045440,"Dishes, pots, and pans","Dishes, pots, and pans",364,"Dishes, pots, and pans",364,ceramic-only collision,14,mapped,0.153628
+P01_01_170,P01,P01_01,00:23:41.440,00:23:42.080,34114560,34129920,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.194476
+P01_01_171,P01,P01_01,00:23:58.080,00:24:01.280,34513920,34590720,Vehicle,Vehicle,300,Vehicle,300,,,unmapped,0.259424
+P01_01_172,P01,P01_01,00:24:03.840,00:24:04.160,34652160,34659840,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.154073
+P01_01_173,P01,P01_01,00:24:30.080,00:24:31.360,35281920,35312640,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.401855
+P01_01_174,P01,P01_01,00:24:30.400,00:24:31.040,35289600,35304960,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.215486
+P01_01_175,P01,P01_01,00:24:30.400,00:24:31.040,35289600,35304960,Sizzle,Sizzle,490,Sizzle,490,sizzling / boiling,29,mapped,0.182953
+P01_01_176,P01,P01_01,00:24:41.280,00:24:41.600,35550720,35558400,Insect,Insect,126,Insect,126,,,unmapped,0.154294
+P01_01_177,P01,P01_01,00:24:47.360,00:24:48.000,35696640,35712000,Vehicle,Vehicle,300,Vehicle,300,,,unmapped,0.174434
+P01_01_178,P01,P01_01,00:24:49.280,00:24:49.600,35742720,35750400,Vehicle,Vehicle,300,Vehicle,300,,,unmapped,0.153410
+P01_01_179,P01,P01_01,00:25:52.000,00:25:53.600,37248000,37286400,Vehicle,Vehicle,300,Vehicle,300,,,unmapped,0.216690
+P01_01_180,P01,P01_01,00:26:23.040,00:26:24.000,37992960,38016000,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.243586
+P01_01_181,P01,P01_01,00:26:36.800,00:26:37.120,38323200,38330880,"Dishes, pots, and pans","Dishes, pots, and pans",364,"Dishes, pots, and pans",364,ceramic-only collision,14,mapped,0.159809
+P01_01_182,P01,P01_01,00:26:57.280,00:26:57.600,38814720,38822400,Hammer,Hammer,419,Hammer,419,,,unmapped,0.179509
+P01_01_183,P01,P01_01,00:27:01.120,00:27:02.080,38906880,38929920,"Dishes, pots, and pans","Dishes, pots, and pans",364,"Dishes, pots, and pans",364,ceramic-only collision,14,mapped,0.360268
+P01_01_184,P01,P01_01,00:27:01.120,00:27:02.080,38906880,38929920,"Cutlery, silverware","Cutlery, silverware",365,"Cutlery, silverware",365,cut / chop,2,mapped,0.317171
+P01_01_185,P01,P01_01,00:27:03.360,00:27:03.680,38960640,38968320,Music,Music,137,Music,137,,,unmapped,0.225439
+P01_01_186,P01,P01_01,00:27:06.560,00:27:10.720,39037440,39137280,Water,Water,288,Water,288,water,5,mapped,0.351989
+P01_01_187,P01,P01_01,00:27:06.880,00:27:08.160,39045120,39075840,"Water tap, faucet","Water tap, faucet",370,"Water tap, faucet",370,water,5,mapped,0.293779
+P01_01_188,P01,P01_01,00:27:06.880,00:27:07.520,39045120,39060480,Sink (filling or washing),Sink (filling or washing),371,Sink (filling or washing),371,water,5,mapped,0.239380
+P01_01_189,P01,P01_01,00:27:09.120,00:27:10.720,39098880,39137280,"Water tap, faucet","Water tap, faucet",370,"Water tap, faucet",370,water,5,mapped,0.223486
+P01_01_190,P01,P01_01,00:27:09.760,00:27:10.400,39114240,39129600,Sink (filling or washing),Sink (filling or washing),371,Sink (filling or washing),371,water,5,mapped,0.154325
+P01_01_191,P01,P01_01,00:27:12.640,00:27:14.240,39183360,39221760,Stir,Stir,455,Stir,455,stir / mix / whisk,8,mapped,0.383116
+P01_01_192,P01,P01_01,00:27:12.960,00:27:13.920,39191040,39214080,Sizzle,Sizzle,490,Sizzle,490,sizzling / boiling,29,mapped,0.174869
+P01_01_193,P01,P01_01,00:27:12.960,00:27:13.600,39191040,39206400,Frying (food),Frying (food),367,Frying (food),367,,,unmapped,0.174600
