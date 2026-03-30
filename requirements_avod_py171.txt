@@ -1,0 +1,21 @@
+# Prefer using environment_avod_py171.yml for the CUDA-enabled setup.
+# ffmpeg/ffprobe are external binaries and are best installed through conda.
+
+torch==2.4.1
+torchvision==0.19.1
+torchaudio==2.4.1
+numpy
+opencv-python
+h5py
+tqdm
+librosa
+pandas
+scipy
+scikit-learn
+psutil
+PyYAML
+simplejson
+fvcore
+iopath
+ultralytics
+timm==0.4.5

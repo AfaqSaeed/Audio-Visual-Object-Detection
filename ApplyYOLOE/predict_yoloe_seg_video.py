@@ -39,7 +39,9 @@ class SoundRow:
     class_id: int
 
 
+# Define the CLI for prompted segmentation, rendering, caching, and optional audio overlays.
 def parse_args() -> argparse.Namespace:
+    repo_root = Path(__file__).resolve().parents[1]
     parser = argparse.ArgumentParser(
         description=(
             "Run prompted segmentation on a video or a directory of frames and save the rendered detections "
@@ -68,19 +70,19 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--model",
         type=str,
-        default="yoloe-11s-seg.pt",
+        default=str(repo_root / "yoloe-11s-seg.pt"),
         help="YOLOE segmentation checkpoint to load when --backend yoloe is used.",
     )
     parser.add_argument(
         "--world-model",
         type=str,
-        default="yolov8s-world.pt",
+        default=str(repo_root / "yolov8m-world.pt"),
         help="YOLO-World checkpoint to load when --backend fastsam-world is used.",
     )
     parser.add_argument(
         "--fastsam-model",
         type=str,
-        default="FastSAM-s.pt",
+        default=str(repo_root / "FastSAM-s.pt"),
         help="FastSAM checkpoint to load when --backend fastsam-world is used.",
     )
     parser.add_argument(
@@ -112,6 +114,18 @@ def parse_args() -> argparse.Namespace:
         type=float,
         default=30.0,
         help="FPS to use when the input is a frames directory.",
+    )
+    parser.add_argument(
+        "--resize-factor",
+        type=float,
+        default=1.0,
+        help="Scale decoded/rendered frames by this factor to speed up processing, e.g. 0.5.",
+    )
+    parser.add_argument(
+        "--frame-stride",
+        type=int,
+        default=1,
+        help="Run inference every Nth frame and reuse the last detections for skipped frames.",
     )
     parser.add_argument(
         "--mask-alpha",
@@ -158,13 +172,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--train-csv",
         type=Path,
-        default=Path(r"d:\Audio-Visual Object Detection\epic-sounds-annotations\EPIC_Sounds_train.csv"),
+        default=repo_root / "epic-sounds-annotations" / "EPIC_Sounds_train.csv",
         help="Path to EPIC_Sounds_train.csv.",
     )
     parser.add_argument(
         "--val-csv",
         type=Path,
-        default=Path(r"d:\Audio-Visual Object Detection\epic-sounds-annotations\EPIC_Sounds_validation.csv"),
+        default=repo_root / "epic-sounds-annotations" / "EPIC_Sounds_validation.csv",
         help="Path to EPIC_Sounds_validation.csv.",
     )
     parser.add_argument(
@@ -189,6 +203,7 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+# Collect and sort image frames when the input is a directory instead of a video file.
 def collect_frame_paths(frames_dir: Path) -> list[Path]:
     frame_paths = sorted(
         path for path in frames_dir.iterdir() if path.is_file() and path.suffix.lower() in IMAGE_EXTS
@@ -198,10 +213,12 @@ def collect_frame_paths(frames_dir: Path) -> list[Path]:
     return frame_paths
 
 
+# Ensure the output directory for a file path exists before writing.
 def ensure_parent_dir(path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
 
 
+# Parse EPIC-style HH:MM:SS.sss timestamps into seconds.
 def parse_timestamp(ts: str) -> float:
     ts = ts.strip().replace(",", ".")
     parts = ts.split(":")
@@ -213,6 +230,7 @@ def parse_timestamp(ts: str) -> float:
     return h * 3600 + m * 60 + s
 
 
+# Parse ffprobe's key=value text output into a dictionary.
 def parse_ffprobe_key_value_output(text: str) -> dict[str, str]:
     data: dict[str, str] = {}
     for line in text.splitlines():
@@ -223,6 +241,7 @@ def parse_ffprobe_key_value_output(text: str) -> dict[str, str]:
     return data
 
 
+# Probe a video with ffprobe to get fps, frame count, frame size, and duration.
 def probe_video_with_ffmpeg(video_path: Path) -> tuple[float, int, int, int, float]:
     ffprobe_path = shutil.which("ffprobe")
     if not ffprobe_path:
@@ -274,6 +293,7 @@ def probe_video_with_ffmpeg(video_path: Path) -> tuple[float, int, int, int, flo
 
 
 class FfmpegVideoReader:
+    # Stream decoded raw BGR frames from ffmpeg to avoid flaky OpenCV video decoding paths.
     def __init__(self, video_path: Path, width: int, height: int) -> None:
         ffmpeg_path = shutil.which("ffmpeg")
         if not ffmpeg_path:
@@ -303,6 +323,7 @@ class FfmpegVideoReader:
         ]
         self.process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
+    # Read one raw frame from the ffmpeg pipe and reshape it into an HxWx3 image.
     def read(self) -> tuple[bool, np.ndarray | None]:
         if self.process.stdout is None:
             return False, None
@@ -314,6 +335,7 @@ class FfmpegVideoReader:
         frame = np.frombuffer(raw, dtype=np.uint8).reshape((self.height, self.width, 3)).copy()
         return True, frame
 
+    # Close the ffmpeg process and its pipes cleanly.
     def release(self) -> None:
         if self.process.stdout is not None:
             self.process.stdout.close()
@@ -328,6 +350,7 @@ class FfmpegVideoReader:
                 self.process.wait()
 
 
+# Add the original audio track back onto a rendered silent video.
 def mux_audio_into_video(
     silent_video_path: Path,
     output_path: Path,
@@ -366,6 +389,7 @@ def mux_audio_into_video(
     return False, result.stderr.strip() or "ffmpeg audio mux failed"
 
 
+# Create the OpenCV video writer used for saving the rendered output.
 def create_writer(output_path: Path, fps: float, width: int, height: int) -> cv2.VideoWriter:
     ensure_parent_dir(output_path)
     fourcc = cv2.VideoWriter_fourcc(*"mp4v")
@@ -375,6 +399,18 @@ def create_writer(output_path: Path, fps: float, width: int, height: int) -> cv2
     return writer
 
 
+# Apply the optional resize factor and keep the output dimensions codec-friendly.
+def compute_output_size(width: int, height: int, resize_factor: float) -> tuple[int, int]:
+    if resize_factor <= 0:
+        raise ValueError("--resize-factor must be > 0")
+    out_width = max(1, int(round(width * resize_factor)))
+    out_height = max(1, int(round(height * resize_factor)))
+    out_width += out_width % 2
+    out_height += out_height % 2
+    return out_width, out_height
+
+
+# Draw a rounded rectangle with optional alpha blending for UI panels and text backgrounds.
 def draw_rounded_rect(
     frame: np.ndarray,
     x0: int,
@@ -399,6 +435,7 @@ def draw_rounded_rect(
         cv2.addWeighted(overlay, alpha, frame, 1.0 - alpha, 0, frame)
 
 
+# Draw a centered line of colored text parts with a rounded translucent background.
 def draw_centered_text_line(
     frame: np.ndarray,
     y_baseline: int,
@@ -442,10 +479,12 @@ def draw_centered_text_line(
         x += tw + gap_px
 
 
+# Scale a UI size value while enforcing a readable minimum.
 def scaled_ui_value(base_value: int | float, resize_factor: float, minimum: int) -> int:
     return max(minimum, int(round(base_value * resize_factor)))
 
 
+# Build a small set of scaled text and panel spacing values for overlays.
 def scaled_text_style(resize_factor: float) -> dict[str, int]:
     ui_scale = max(0.35, resize_factor)
     return {
@@ -456,6 +495,7 @@ def scaled_text_style(resize_factor: float) -> dict[str, int]:
     }
 
 
+# Assign a deterministic display color to each class label.
 def class_color_bgr(label: str) -> tuple[int, int, int]:
     digest = hashlib.md5(label.encode("utf-8")).hexdigest()
     hue = int(digest[:8], 16) % 180
@@ -464,10 +504,12 @@ def class_color_bgr(label: str) -> tuple[int, int, int]:
     return int(bgr[0]), int(bgr[1]), int(bgr[2])
 
 
+# Reuse the same color mapping helper when only a numeric class id is available.
 def class_id_to_color_bgr(class_id: int) -> tuple[int, int, int]:
     return class_color_bgr(str(class_id))
 
 
+# Load EPIC sound annotation rows for one video so they can be shown on the audio timeline overlay.
 def load_sound_rows(csv_path: Path, video_id: str) -> list[SoundRow]:
     if not csv_path.exists():
         return []
@@ -494,6 +536,7 @@ def load_sound_rows(csv_path: Path, video_id: str) -> list[SoundRow]:
     return rows
 
 
+# Return the sound rows that are active at the current video time.
 def pick_active(rows: list[SoundRow], t: float) -> list[SoundRow]:
     active: list[SoundRow] = []
     for row in rows:
@@ -504,6 +547,7 @@ def pick_active(rows: list[SoundRow], t: float) -> list[SoundRow]:
     return active
 
 
+# Read a WAV file and compress it into a normalized low-rate envelope for waveform visualization.
 def load_waveform_envelope(wav_path: Path | None, target_hz: int = 200) -> tuple[np.ndarray | None, float | None, str]:
     if wav_path is None or not wav_path.exists():
         return None, None, "waveform unavailable: wav not found"
@@ -546,6 +590,7 @@ def load_waveform_envelope(wav_path: Path | None, target_hz: int = 200) -> tuple
     return envelope.astype(np.float32), float(target_hz), f"waveform loaded from {wav_path}"
 
 
+# Pre-render the full audio timeline panel so each frame only needs to crop the visible window.
 def build_timeline_panel_canvas(
     rows: list[SoundRow],
     waveform_envelope: np.ndarray | None,
@@ -603,6 +648,7 @@ def build_timeline_panel_canvas(
     return canvas, pixels_per_second
 
 
+# Draw the scrolling audio waveform and EPIC label panel at the bottom of a rendered frame.
 def render_audio_panel(
     frame: np.ndarray,
     t: float,
@@ -622,7 +668,8 @@ def render_audio_panel(
         return
 
     h, w = frame.shape[:2]
-    bottom_bar_height = max(scaled_ui_value(70, max(0.35, w / max(w, 1)), 28), int(0.14 * h))
+    ui_scale = max(0.35, h / 720.0)
+    bottom_bar_height = max(scaled_ui_value(70, ui_scale, 28), int(0.14 * h))
     bar_y1 = h - 1
     bar_y0 = h - bottom_bar_height
     panel_margin_x = max(12, int(0.02 * w))
@@ -731,6 +778,7 @@ def render_audio_panel(
     )
 
 
+# Extract mono 16 kHz WAV audio from a video when the waveform overlay needs an audio source.
 def extract_audio_to_wav(audio_source: Path, output_dir: Path) -> Path | None:
     ffmpeg_path = shutil.which("ffmpeg")
     if not ffmpeg_path:
@@ -762,6 +810,7 @@ def extract_audio_to_wav(audio_source: Path, output_dir: Path) -> Path | None:
     return wav_path
 
 
+# Remove empty prompts and ensure the backend always receives at least one valid class prompt.
 def clean_prompts(prompts: list[str]) -> list[str]:
     values = [prompt.strip() for prompt in prompts if prompt.strip()]
     if not values:
@@ -769,6 +818,7 @@ def clean_prompts(prompts: list[str]) -> list[str]:
     return values
 
 
+# Load the requested prompted-vision backend and configure it with the text prompts.
 def load_backend(args: argparse.Namespace) -> tuple[dict[str, Any], list[str]]:
     prompts = clean_prompts(args.prompts)
 
@@ -787,6 +837,7 @@ def load_backend(args: argparse.Namespace) -> tuple[dict[str, Any], list[str]]:
     return {"backend": "fastsam-world", "world": world, "fastsam": fastsam}, prompts
 
 
+# Resolve a class name from an Ultralytics names mapping or fall back to the raw class id.
 def name_from_lookup(names: Any, cls_idx: int) -> str:
     if isinstance(names, dict):
         return str(names.get(cls_idx, cls_idx))
@@ -795,6 +846,7 @@ def name_from_lookup(names: Any, cls_idx: int) -> str:
     return str(cls_idx)
 
 
+# Convert a binary mask into polygon contours for serialization and later rendering.
 def mask_to_polygons(mask: np.ndarray) -> list[list[list[int]]]:
     mask_u8 = (mask > 0.5).astype(np.uint8) * 255
     contours, _hierarchy = cv2.findContours(mask_u8, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -806,6 +858,42 @@ def mask_to_polygons(mask: np.ndarray) -> list[list[list[int]]]:
     return polygons
 
 
+# Extract image-space polygons from an Ultralytics result, falling back to raw mask contours if needed.
+def polygons_from_result_masks(result, idx: int) -> list[list[list[int]]]:
+    masks = getattr(result, "masks", None)
+    if masks is None:
+        return []
+
+    xy_polygons = getattr(masks, "xy", None)
+    if xy_polygons is not None and idx < len(xy_polygons):
+        polygon_entry = xy_polygons[idx]
+        polygon_arrays: list[np.ndarray] = []
+        polygon_np = np.asarray(polygon_entry, dtype=np.float32)
+        if polygon_np.ndim == 2 and polygon_np.shape[0] >= 3 and polygon_np.shape[1] == 2:
+            polygon_arrays.append(polygon_np)
+        else:
+            for polygon in polygon_entry:
+                polygon_np = np.asarray(polygon, dtype=np.float32)
+                if polygon_np.ndim != 2 or polygon_np.shape[0] < 3 or polygon_np.shape[1] != 2:
+                    continue
+                polygon_arrays.append(polygon_np)
+
+        polygons: list[list[list[int]]] = []
+        for polygon_np in polygon_arrays:
+            polygons.append(np.rint(polygon_np).astype(int).tolist())
+        if polygons:
+            return polygons
+
+    mask_data = getattr(masks, "data", None)
+    if mask_data is None:
+        return []
+    mask_array = mask_data.detach().cpu().numpy()
+    if idx >= len(mask_array):
+        return []
+    return mask_to_polygons(mask_array[idx])
+
+
+# Render a normalized list of cached detections as translucent masks, boxes, and labels.
 def render_cached_detections(frame: np.ndarray, detections: list[dict[str, Any]], alpha: float) -> np.ndarray:
     annotated = frame.copy()
     overlay = annotated.copy()
@@ -835,6 +923,7 @@ def render_cached_detections(frame: np.ndarray, detections: list[dict[str, Any]]
     return annotated
 
 
+# Normalize a YOLOE result into the project's standard detection dictionary format.
 def build_yoloe_detections(result) -> list[dict[str, Any]]:
     detections: list[dict[str, Any]] = []
     if result.boxes is None or len(result.boxes) == 0:
@@ -844,13 +933,9 @@ def build_yoloe_detections(result) -> list[dict[str, Any]]:
     scores = result.boxes.conf.detach().cpu().numpy()
     classes = result.boxes.cls.detach().cpu().numpy().astype(int)
     names = getattr(result, "names", {})
-    mask_data = result.masks.data.detach().cpu().numpy() if result.masks is not None else None
-
     for idx, box in enumerate(boxes_xyxy):
         label = name_from_lookup(names, classes[idx])
-        polygons: list[list[list[int]]] = []
-        if mask_data is not None and idx < len(mask_data):
-            polygons = mask_to_polygons(mask_data[idx])
+        polygons = polygons_from_result_masks(result, idx)
         detections.append(
             {
                 "label": label,
@@ -862,6 +947,7 @@ def build_yoloe_detections(result) -> list[dict[str, Any]]:
     return detections
 
 
+# Combine YOLO-World boxes with FastSAM masks into the same normalized detection format.
 def build_fastsam_world_detections(world_result, fastsam_result) -> list[dict[str, Any]]:
     detections: list[dict[str, Any]] = []
     if world_result.boxes is None or len(world_result.boxes) == 0:
@@ -871,13 +957,9 @@ def build_fastsam_world_detections(world_result, fastsam_result) -> list[dict[st
     scores = world_result.boxes.conf.detach().cpu().numpy()
     classes = world_result.boxes.cls.detach().cpu().numpy().astype(int)
     names = getattr(world_result, "names", {})
-    mask_data = fastsam_result.masks.data.detach().cpu().numpy() if fastsam_result is not None and fastsam_result.masks is not None else None
-
     for idx, box in enumerate(boxes_xyxy):
         label = name_from_lookup(names, classes[idx])
-        polygons: list[list[list[int]]] = []
-        if mask_data is not None and idx < len(mask_data):
-            polygons = mask_to_polygons(mask_data[idx])
+        polygons = polygons_from_result_masks(fastsam_result, idx) if fastsam_result is not None else []
         detections.append(
             {
                 "label": label,
@@ -889,6 +971,7 @@ def build_fastsam_world_detections(world_result, fastsam_result) -> list[dict[st
     return detections
 
 
+# Run the selected backend on one frame and return normalized detections.
 def predict_detections(
     backend: dict[str, Any],
     frame: np.ndarray,
@@ -929,6 +1012,7 @@ def predict_detections(
     return build_fastsam_world_detections(world_result, fastsam_result)
 
 
+# Save per-frame detections so rendering can be repeated later without rerunning inference.
 def save_prediction_cache(
     cache_path: Path,
     frames: list[list[dict[str, Any]]],
@@ -946,11 +1030,13 @@ def save_prediction_cache(
         json.dump(payload, f)
 
 
+# Load a previously saved detection cache from JSON.
 def load_prediction_cache(cache_path: Path) -> dict[str, Any]:
     with cache_path.open("r", encoding="utf-8") as f:
         return json.load(f)
 
 
+# Draw a filled label box for one detection near its bounding box.
 def draw_label(frame: np.ndarray, text: str, x1: int, y1: int, color: tuple[int, int, int]) -> None:
     (text_width, text_height), baseline = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, 0.55, 2)
     y_text = max(0, y1 - text_height - baseline - 6)
@@ -967,6 +1053,7 @@ def draw_label(frame: np.ndarray, text: str, x1: int, y1: int, color: tuple[int,
     )
 
 
+# Convenience helper that predicts detections and immediately renders them onto a frame.
 def predict_annotated_frame(
     backend: dict[str, Any],
     frame: np.ndarray,
@@ -979,6 +1066,7 @@ def predict_annotated_frame(
     return render_cached_detections(frame, detections, alpha=mask_alpha)
 
 
+# Optionally dump rendered frames as individual JPEGs alongside the output video.
 def save_frame_if_requested(save_frames: bool, output_path: Path, frame_index: int, frame: np.ndarray) -> None:
     if not save_frames:
         return
@@ -990,6 +1078,7 @@ def save_frame_if_requested(save_frames: bool, output_path: Path, frame_index: i
     cv2.imwrite(str(frame_path), frame)
 
 
+# Process a video file frame by frame, run prompted detection, render the overlays, and save a video.
 def run_on_video(
     backend: dict[str, Any],
     input_path: Path,
@@ -1006,8 +1095,11 @@ def run_on_video(
     save_predictions_path: Path | None,
     backend_name: str,
     prompts: list[str],
+    resize_factor: float,
+    frame_stride: int,
 ) -> tuple[Path, bool, str | None]:
     fps, frame_count, width, height, duration = probe_video_with_ffmpeg(input_path)
+    out_width, out_height = compute_output_size(width, height, resize_factor)
 
     silent_output_path = output_path
     final_output_path = output_path
@@ -1015,7 +1107,7 @@ def run_on_video(
         silent_output_path = output_path.with_name(f"{output_path.stem}.silent{output_path.suffix}")
 
     reader = FfmpegVideoReader(input_path, width=width, height=height)
-    writer = create_writer(silent_output_path, fps=fps, width=width, height=height)
+    writer = create_writer(silent_output_path, fps=fps, width=out_width, height=out_height)
 
     max_frames = None
     if max_seconds is not None:
@@ -1024,6 +1116,7 @@ def run_on_video(
     try:
         frame_index = 0
         saved_frames: list[list[dict[str, Any]]] = []
+        last_detections: list[dict[str, Any]] = []
         while True:
             ok, frame = reader.read()
             if not ok:
@@ -1032,16 +1125,24 @@ def run_on_video(
             if max_frames is not None and frame_index >= max_frames:
                 break
 
+            if resize_factor != 1.0:
+                frame = cv2.resize(frame, (out_width, out_height), interpolation=cv2.INTER_AREA)
+
             if cached_frames is not None:
                 detections = cached_frames[frame_index] if frame_index < len(cached_frames) else []
             else:
-                detections = predict_detections(
-                    backend=backend,
-                    frame=frame,
-                    conf=conf,
-                    imgsz=imgsz,
-                    device=device,
-                )
+                should_infer = frame_index == 0 or max(1, frame_stride) <= 1 or (frame_index % max(1, frame_stride) == 0)
+                if should_infer:
+                    detections = predict_detections(
+                        backend=backend,
+                        frame=frame,
+                        conf=conf,
+                        imgsz=imgsz,
+                        device=device,
+                    )
+                    last_detections = detections
+                else:
+                    detections = last_detections
                 if save_predictions_path is not None:
                     saved_frames.append(detections)
 
@@ -1102,6 +1203,7 @@ def run_on_video(
     return silent_output_path, False, message
 
 
+# Process a directory of image frames with the same rendering pipeline used for videos.
 def run_on_frames_dir(
     backend: dict[str, Any],
     input_path: Path,
@@ -1118,6 +1220,8 @@ def run_on_frames_dir(
     save_predictions_path: Path | None,
     backend_name: str,
     prompts: list[str],
+    resize_factor: float,
+    frame_stride: int,
 ) -> None:
     frame_paths = collect_frame_paths(input_path)
     first_frame = cv2.imread(str(frame_paths[0]))
@@ -1125,7 +1229,8 @@ def run_on_frames_dir(
         raise RuntimeError(f"Failed to read first frame: {frame_paths[0]}")
 
     height, width = first_frame.shape[:2]
-    writer = create_writer(output_path, fps=fps, width=width, height=height)
+    out_width, out_height = compute_output_size(width, height, resize_factor)
+    writer = create_writer(output_path, fps=fps, width=out_width, height=out_height)
 
     max_frames = len(frame_paths)
     if max_seconds is not None:
@@ -1133,21 +1238,30 @@ def run_on_frames_dir(
 
     try:
         saved_frames: list[list[dict[str, Any]]] = []
+        last_detections: list[dict[str, Any]] = []
         for frame_index, frame_path in enumerate(frame_paths[:max_frames]):
             frame = cv2.imread(str(frame_path))
             if frame is None:
                 raise RuntimeError(f"Failed to read frame: {frame_path}")
 
+            if resize_factor != 1.0:
+                frame = cv2.resize(frame, (out_width, out_height), interpolation=cv2.INTER_AREA)
+
             if cached_frames is not None:
                 detections = cached_frames[frame_index] if frame_index < len(cached_frames) else []
             else:
-                detections = predict_detections(
-                    backend=backend,
-                    frame=frame,
-                    conf=conf,
-                    imgsz=imgsz,
-                    device=device,
-                )
+                should_infer = frame_index == 0 or max(1, frame_stride) <= 1 or (frame_index % max(1, frame_stride) == 0)
+                if should_infer:
+                    detections = predict_detections(
+                        backend=backend,
+                        frame=frame,
+                        conf=conf,
+                        imgsz=imgsz,
+                        device=device,
+                    )
+                    last_detections = detections
+                else:
+                    detections = last_detections
                 if save_predictions_path is not None:
                     saved_frames.append(detections)
 
@@ -1180,6 +1294,7 @@ def run_on_frames_dir(
         print(f"Saved predictions cache to: {save_predictions_path}")
 
 
+# Wire together input loading, backend setup, optional audio overlays, rendering, and final output writing.
 def main() -> None:
     args = parse_args()
     input_path = args.input.resolve()
@@ -1209,6 +1324,7 @@ def main() -> None:
         print(f"Loaded YOLO-World model: {args.world_model}")
         print(f"Loaded FastSAM model: {args.fastsam_model}")
     print(f"Using prompts: {prompts}")
+    print(f"Frame stride: {max(1, args.frame_stride)}")
     if args.max_seconds is not None:
         print(
             f"Preview mode enabled via --max-seconds={args.max_seconds}. "
@@ -1257,14 +1373,16 @@ def main() -> None:
         text_style = scaled_text_style(1.0)
         timeline_canvas = None
         timeline_pixels_per_second = None
+        timeline_panel_width = max(640, int(round(1280 * max(0.35, args.resize_factor))))
+        timeline_panel_height = max(80, int(round(160 * max(0.35, args.resize_factor))))
         if probe_duration is not None:
             timeline_canvas, timeline_pixels_per_second = build_timeline_panel_canvas(
                 rows=sound_rows,
                 waveform_envelope=waveform_envelope,
                 waveform_hz=waveform_hz,
                 duration=probe_duration,
-                panel_width=1280,
-                panel_height=160,
+                panel_width=timeline_panel_width,
+                panel_height=timeline_panel_height,
                 timeline_window_seconds=15.0,
             )
         audio_panel = {
@@ -1275,14 +1393,15 @@ def main() -> None:
             "waveform_envelope": waveform_envelope,
             "waveform_hz": waveform_hz,
             "font": font,
-            "font_scale": font_scale,
-            "thickness": thickness,
-            "text_style": text_style,
+            "font_scale": max(0.35, 0.75 * max(0.35, args.resize_factor)),
+            "thickness": scaled_ui_value(2, max(0.35, args.resize_factor), 1),
+            "text_style": scaled_text_style(max(0.35, args.resize_factor)),
         }
         print(f"Waveform: {waveform_status}")
         if video_id:
             print(f"EPIC video_id: {video_id}")
             print(f"Loaded {len(sound_rows)} sound rows from {source_csv} CSV")
+    print(f"Resize factor: {args.resize_factor}")
 
     if input_path.is_dir():
         run_on_frames_dir(
@@ -1301,6 +1420,8 @@ def main() -> None:
             save_predictions_path=args.save_predictions.resolve() if args.save_predictions else None,
             backend_name=("cached" if cached_payload is not None else args.backend),
             prompts=prompts,
+            resize_factor=args.resize_factor,
+            frame_stride=max(1, args.frame_stride),
         )
     elif input_path.suffix.lower() in VIDEO_EXTS:
         written_output_path, audio_muxed, audio_message = run_on_video(
@@ -1319,6 +1440,8 @@ def main() -> None:
             save_predictions_path=args.save_predictions.resolve() if args.save_predictions else None,
             backend_name=("cached" if cached_payload is not None else args.backend),
             prompts=prompts,
+            resize_factor=args.resize_factor,
+            frame_stride=max(1, args.frame_stride),
         )
     else:
         raise ValueError(

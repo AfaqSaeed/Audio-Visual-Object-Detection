@@ -69,3 +69,6 @@ auditory-slow-fast/
 epic-kitchens-download-scripts/
 epic-sounds-annotations/
 *.json
+AV_EventRecognition_Code.rar
+*.rar
+*.code-workspace
