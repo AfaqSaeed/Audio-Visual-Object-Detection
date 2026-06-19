@@ -9,6 +9,24 @@ This repository contains an audio-visual event recognition pipeline built on:
 
 The main pipeline lives in `AV_EventRecognition/run_av_event_pipeline.py`.
 
+## GitHub Repository Notes
+
+This repository is intended to publish source code, recipes, and environment files only.
+
+Not committed to Git:
+
+- model checkpoints and weights (`*.pt`, `*.pyth`, `*.pth`, `*.ckpt`, `*.ts`)
+- EPIC-KITCHENS videos, extracted audio, HDF5 files, and other dataset artifacts
+- generated pipeline outputs, logs, archives, and local editor files
+
+`AudioInceptionNeXt` is tracked as a Git submodule. Clone with submodules when setting up a new machine:
+
+```powershell
+git clone --recurse-submodules https://github.com/<your-user>/<your-repo>.git
+```
+
+See `docs/PUBLISHING.md` for the final publish checklist and Git commands.
+
 ## Minimum Required Files
 
 You need these inputs before running the pipeline:
@@ -20,19 +38,20 @@ You need these inputs before running the pipeline:
 - An event recipe JSON file
   - Example: `AV_EventRecognition/recipes/cutting_cucumber.json`
 
-You also need these model/config files:
+You also need these model/config files. They are intentionally not committed to this repository:
 
 - Audio inference script
   - `epic-sounds-annotations/src/tools/infer_hdf5_video.py`
 - Audio config
   - `epic-sounds-annotations/src/configs/EPIC-Sounds/ssast/SSAST_b_vit_p16.yaml`
 - Audio checkpoint
-  - `SSAST_EPIC_SOUNDS.pyth download from here` [SSAST_EPIC_SOUNDS.pyth](https://www.dropbox.com/scl/fi/3luxvggu30smj9xxgsrjg/SSAST_EPIC_SOUNDS.pyth?rlkey=qzygp59f4joq8q4r586r33t6t&e=2&dl=0)
+  - `SSAST_EPIC_SOUNDS.pyth`
+  - Download link: [SSAST_EPIC_SOUNDS.pyth](https://www.dropbox.com/scl/fi/3luxvggu30smj9xxgsrjg/SSAST_EPIC_SOUNDS.pyth?rlkey=qzygp59f4joq8q4r586r33t6t&e=2&dl=0)
 - Visual inference script
   - `ApplyYOLOE/predict_yoloe_seg_video.py`
 - Visual model file names
-  - `yolov8l-world.pt - this the ultralytics module will download itself - you also have other options depending on processing power yolov8s-world.pt << yolov8m-world.pt << yolov8x-world.pt`  
-  - `FastSAM-x.pt - this will also be downlaoded by ultralytics you can also specify FastSAM-s.pt`
+  - `yolov8l-world.pt` or another YOLO-World checkpoint name. Ultralytics can download these automatically.
+  - `FastSAM-x.pt` or `FastSAM-s.pt`. Ultralytics can download these automatically.
 
 The current AV pipeline defaults use the `fastsam-world` backend, so the main visual weights you need are:
 
@@ -112,24 +131,24 @@ conda run -n avod_py171 python AV_EventRecognition/run_av_event_pipeline.py `
 
 ## Sample: Chopping Cucumber On P01_01
 
-This is the exact command used to verify the exported bundle on `P01_01`. Run it from the bundle root after unzipping:
+This command uses placeholder paths so it can be adapted after cloning the repository:
 
 ```powershell
 conda run -n avod_py171 python AV_EventRecognition\run_av_event_pipeline.py `
-  --video "D:\datasets\EPIC-KITCHENS\P01\videos\P01_01.MP4" `
-  --audio-csv "AV_EventRecognition\outputs\bundle_independence_cutting_cucumber\P01_01_ssast_ann_autogen.csv" `
-  --audio-output-summary-csv "AV_EventRecognition\outputs\bundle_independence_cutting_cucumber\P01_01_ssast_ann_autogen_summary.csv" `
+  --video "path\to\videos\P01_01.MP4" `
+  --audio-csv "AV_EventRecognition\outputs\cutting_cucumber\P01_01_ssast_ann_autogen.csv" `
+  --audio-output-summary-csv "AV_EventRecognition\outputs\cutting_cucumber\P01_01_ssast_ann_autogen_summary.csv" `
   --auto-generate-audio-csv `
-  --audio-checkpoint "D:\Audio-Visual Object Detection\SSAST_EPIC_SOUNDS.pyth" `
-  --audio-hdf5 "D:\datasets\hdf5_from_wav\wav_to_pickled.hdf5" `
+  --audio-checkpoint "path\to\models\SSAST_EPIC_SOUNDS.pyth" `
+  --audio-hdf5 "path\to\audio\wav_to_pickled.hdf5" `
   --audio-video-id "P01_01" `
   --audio-window-mode annotation_regions `
   --audio-annotations-file "epic-sounds-annotations\EPIC_Sounds_train.csv" `
   --recipe-json "AV_EventRecognition\recipes\cutting_cucumber.json" `
-  --output-dir "AV_EventRecognition\outputs\bundle_independence_cutting_cucumber" `
-  --model "D:\Audio-Visual Object Detection\yoloe-11s-seg.pt" `
-  --world-model "D:\Audio-Visual Object Detection\yolov8m-world.pt" `
-  --fastsam-model "D:\Audio-Visual Object Detection\FastSAM-s.pt" `
+  --output-dir "AV_EventRecognition\outputs\cutting_cucumber" `
+  --model "path\to\models\yoloe-11s-seg.pt" `
+  --world-model "path\to\models\yolov8m-world.pt" `
+  --fastsam-model "path\to\models\FastSAM-s.pt" `
   --max-clips 1
 ```
 
@@ -219,3 +238,7 @@ conda run -n avod_py171 python AV_EventRecognition/visualize_event_evidence.py `
 ```
 
 Disclaimer: Parts of this repository, including code, documentation, and workflow setup, were developed with AI assistance using Codex.
+
+## License
+
+No license file has been selected yet. Add a license before making the repository public if you want others to reuse, modify, or redistribute the code.

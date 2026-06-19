@@ -1,0 +1,4 @@
+[submodule "AudioInceptionNeXt"]
+	path = AudioInceptionNeXt
+	url = https://github.com/StevenLauHKHK/AudioInceptionNeXt.git
+	ignore = untracked

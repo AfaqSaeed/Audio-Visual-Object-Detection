@@ -11,6 +11,10 @@ import cv2
 import numpy as np
 
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_DATA_ROOT = REPO_ROOT / "data" / "EPIC-KITCHENS"
+
+
 @dataclass
 class MaskInstance:
     bbox_norm: tuple[float, float, float, float]
@@ -439,17 +443,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--mask-pkl",
         type=Path,
-        default=Path(r"D:\datasets\EPIC-KITCHENS\P01\masks\P01_01.pkl"),
+        default=DEFAULT_DATA_ROOT / "P01" / "masks" / "P01_01.pkl",
     )
     parser.add_argument(
         "--hand-pkl",
         type=Path,
-        default=Path(r"D:\datasets\EPIC-KITCHENS\P01\hand-objects\P01_01.pkl"),
+        default=DEFAULT_DATA_ROOT / "P01" / "hand-objects" / "P01_01.pkl",
     )
     parser.add_argument(
         "--video",
         type=Path,
-        default=Path(r"D:\datasets\EPIC-KITCHENS\P01\videos\P01_01.MP4"),
+        default=DEFAULT_DATA_ROOT / "P01" / "videos" / "P01_01.MP4",
     )
     parser.add_argument("--mode", choices=["summary", "render"], default="summary")
     parser.add_argument("--sample-frames", type=int, default=5)
@@ -458,7 +462,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--output",
         type=Path,
-        default=Path(r"D:\Audio-Visual Object Detection\Explore_Masks\P01_01_masks_overlay.mp4"),
+        default=REPO_ROOT / "Explore_Masks" / "outputs" / "P01_01_masks_overlay.mp4",
     )
     parser.add_argument("--alpha", type=float, default=0.45)
     return parser.parse_args()

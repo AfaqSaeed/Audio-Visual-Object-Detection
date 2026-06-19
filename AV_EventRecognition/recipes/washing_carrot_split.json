@@ -1,0 +1,17 @@
+{
+  "audio_label": "water",
+  "positive_event_name": "washing carrot",
+  "fallback_event_name": "other water event",
+  "prompts": ["tap", "faucet", "water", "carrot"],
+  "must_have": [
+    ["tap", "faucet"],
+    ["water"],
+    ["carrot"]
+  ],
+  "must_have_min_scores": [0.02, 0.02, 0.15],
+  "conf": 0.01,
+  "distance_threshold_ratio": 0.08,
+  "min_support_frames": 3,
+  "clip_pad_before": 1.0,
+  "clip_pad_after": 1.0
+}

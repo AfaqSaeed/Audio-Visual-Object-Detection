@@ -1,0 +1,16 @@
+{
+  "audio_label": "cut / chop",
+  "positive_event_name": "chopping cucumber",
+  "fallback_event_name": "other chopping event",
+  "prompts": ["cutting board", "knife", "cucumber", "food other than cucumber"],
+  "must_have": [
+    ["cutting board", "chopping board"],
+    ["knife"],
+    ["cucumber"]
+  ],
+  "conf": 0.01,
+  "distance_threshold_ratio": 0.06,
+  "min_support_frames": 3,
+  "clip_pad_before": 1.0,
+  "clip_pad_after": 1.0
+}

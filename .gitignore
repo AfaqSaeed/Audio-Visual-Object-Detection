@@ -17,6 +17,8 @@ env/
 .cache/
 .tmp_numba_shim/
 .ultralytics/
+data/
+models/
 tmp/
 temp/
 
@@ -50,9 +52,21 @@ temp/
 *.ogg
 
 # Generated outputs
+AV_EventRecognition/outputs/
+AV_EventRecognition_export_bundle_*/
+AV_EventRecognition_runtime_assets_*/
+*_active_regions.csv
+*_active.csv
+*_ann.csv
+*_ann_autogen.csv
 *_windows.csv
 *_summary.csv
+*_summary.json
 *_peaks.csv
+*_train_regions_pred.csv
+*_vs_train.csv
+*_pann.csv
+*_preds.json
 *_logs.txt
 *_logs.txtpython
 logs/
@@ -68,7 +82,6 @@ audioset_tagging_cnn/
 auditory-slow-fast/
 epic-kitchens-download-scripts/
 epic-sounds-annotations/
-*.json
 AV_EventRecognition_Code.rar
 *.rar
 *.code-workspace

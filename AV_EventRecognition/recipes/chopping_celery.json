@@ -1,0 +1,16 @@
+{
+  "audio_label": "cut / chop",
+  "positive_event_name": "chopping celery",
+  "fallback_event_name": "other chopping event",
+  "prompts": ["cutting board", "knife", "celery", "food other than celery"],
+  "must_have": [
+    ["cutting board", "chopping board"],
+    ["knife"],
+    ["celery", "food"]
+  ],
+  "conf": 0.01,
+  "distance_threshold_ratio": 0.06,
+  "min_support_frames": 3,
+  "clip_pad_before": 2.0,
+  "clip_pad_after": 2.0
+}

@@ -1,5 +1,13 @@
+from __future__ import annotations
+
+import argparse
 import csv
 from pathlib import Path
+
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_DATA_ROOT = REPO_ROOT / "data"
+DEFAULT_ANNOTATION_ROOT = REPO_ROOT / "epic-sounds-annotations"
 
 
 def find_first_video(video_root: Path) -> Path:
@@ -36,12 +44,22 @@ def format_row(r: dict) -> str:
     )
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Print a small EPIC-SOUNDS sample for one available video.")
+    parser.add_argument("--video-root", type=Path, default=DEFAULT_DATA_ROOT / "EPIC-KITCHENS")
+    parser.add_argument("--sound-root", type=Path, default=DEFAULT_DATA_ROOT / "sound-files")
+    parser.add_argument("--train-csv", type=Path, default=DEFAULT_ANNOTATION_ROOT / "EPIC_Sounds_train.csv")
+    parser.add_argument("--val-csv", type=Path, default=DEFAULT_ANNOTATION_ROOT / "EPIC_Sounds_validation.csv")
+    parser.add_argument("--first-n", type=int, default=10)
+    return parser.parse_args()
+
+
 def main() -> None:
-    # Match your dataset locations
-    video_root = Path(r"D:\datasets\EPIC-KITCHENS")
-    sound_root = Path(r"D:\datasets\sound files")
-    train_csv = Path(r"D:\Audio-Visual Object Detection\epic-sounds-annotations\EPIC_Sounds_train.csv")
-    val_csv = Path(r"D:\Audio-Visual Object Detection\epic-sounds-annotations\EPIC_Sounds_validation.csv")
+    args = parse_args()
+    video_root = args.video_root
+    sound_root = args.sound_root
+    train_csv = args.train_csv
+    val_csv = args.val_csv
 
     # Pick one video (first found, sorted) and derive video_id from filename stem.
     video_path = find_first_video(video_root)
@@ -52,7 +70,7 @@ def main() -> None:
     train_rows = read_filtered_rows(train_csv, video_id)
     val_rows = read_filtered_rows(val_csv, video_id)
 
-    first_n = 10
+    first_n = args.first_n
 
     print(f"Sample video: {video_path}")
     print(f"Derived video_id: {video_id}")

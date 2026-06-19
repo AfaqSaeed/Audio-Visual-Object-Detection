@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import csv
 import hashlib
 import argparse
@@ -16,6 +18,11 @@ os.environ.setdefault("OPENCV_FFMPEG_READ_ATTEMPTS", "65536")
 
 import cv2
 import numpy as np
+
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_DATA_ROOT = REPO_ROOT / "data"
+DEFAULT_ANNOTATION_ROOT = REPO_ROOT / "epic-sounds-annotations"
 
 
 @dataclass(frozen=True)
@@ -623,17 +630,17 @@ def print_progress_bar(current: int, total: int, width: int = 32) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Overlay EPIC sound labels on a video.")
-    parser.add_argument("--video_root", type=str, default=r"D:\datasets\EPIC-KITCHENS")
-    parser.add_argument("--sound_root", type=str, default=r"D:\datasets\sound files")
+    parser.add_argument("--video_root", type=str, default=str(DEFAULT_DATA_ROOT / "EPIC-KITCHENS"))
+    parser.add_argument("--sound_root", type=str, default=str(DEFAULT_DATA_ROOT / "sound-files"))
     parser.add_argument(
         "--train_csv",
         type=str,
-        default=r"D:\Audio-Visual Object Detection\epic-sounds-annotations\EPIC_Sounds_train.csv",
+        default=str(DEFAULT_ANNOTATION_ROOT / "EPIC_Sounds_train.csv"),
     )
     parser.add_argument(
         "--val_csv",
         type=str,
-        default=r"D:\Audio-Visual Object Detection\epic-sounds-annotations\EPIC_Sounds_validation.csv",
+        default=str(DEFAULT_ANNOTATION_ROOT / "EPIC_Sounds_validation.csv"),
     )
     parser.add_argument("--video_id", type=str, default="")
     parser.add_argument(
@@ -652,7 +659,7 @@ def main() -> None:
     parser.add_argument(
         "--out_dir",
         type=str,
-        default=r"D:\Audio-Visual Object Detection\Visualize_Dataset",
+        default=str(REPO_ROOT / "Visualize_Dataset" / "outputs"),
     )
     parser.add_argument(
         "--timeline_window_seconds",
