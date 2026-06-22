@@ -1,3 +1,7 @@
+
+<img width="1672" height="941" alt="Audio_Visual_Event_Recognition_Project" src="https://github.com/user-attachments/assets/28cdd49f-ba8e-49bd-8422-f3ed62d75d0b" />
+
+
 # Audio-Visual Event Recognition
 
 
@@ -6,6 +10,8 @@ This repository contains an audio-visual event recognition pipeline built on:
 - EPIC-SOUNDS audio event detection
 - prompted visual detection with YOLO-World + FastSAM
 - simple event rules defined in JSON recipe files
+
+<img width="1844" height="1006" alt="image" src="https://github.com/user-attachments/assets/1e28d557-279a-4cb0-a4dd-490922ba86ec" />
 
 The main pipeline lives in `AV_EventRecognition/run_av_event_pipeline.py`.
 
