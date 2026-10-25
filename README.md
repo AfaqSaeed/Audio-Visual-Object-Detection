@@ -247,4 +247,4 @@ Disclaimer: Parts of this repository, including code, documentation, and workflo
 
 ## License
 
-No license file has been selected yet. Add a license before making the repository public if you want others to reuse, modify, or redistribute the code.
+The project is distributed under MIT License 
